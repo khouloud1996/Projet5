@@ -146,6 +146,91 @@ function deleteItem(api, products) {
 
 
 
+let firstName = document.getElementById("firstName");
+firstName.addEventListener("change", function () {
+      validFirstName(this);
+    });
+
+      // Function that return true or false if the regexp for the city is respected
+function validFirstName(inputFirstName) {
+  let textRegExp = new RegExp("^[a-zA-Z][a-zA-Z .,'-]*$", "g");
+
+  if (!textRegExp.test(inputFirstName.value)) {
+        document.getElementById("firstNameErrorMsg").innerText = "Exemple : alex";
+        return false;
+  } else if (inputFirstName.value.length < 2) {
+        document.getElementById("firstNameErrorMsg").innerText = "Vérifiez votre Nom";
+        return false;
+  } else {
+        document.getElementById("firstNameErrorMsg").innerText = "";
+        return true;
+  }
+}
+
+let lastName = document.getElementById("lastName");
+lastName.addEventListener("change", function () {
+      validLastName(this);
+    });
+
+      // Function that return true or false if the regexp for the city is respected
+function validLastName(inputLastName) {
+  let textRegExp = new RegExp("^[a-zA-Z][a-zA-Z .,'-]*$", "g");
+
+  if (!textRegExp.test(inputLastName.value)) {
+        document.getElementById("lastNameErrorMsg").innerText = "Exemple : doireau";
+        return false;
+  } else if (inputLastName.value.length < 3) {
+        document.getElementById("lastNameErrorMsg").innerText = "Vérifiez votre prenom";
+        return false;
+  } else {
+        document.getElementById("lastNameErrorMsg").innerText = "";
+        return true;
+  }
+}
+
+
+let address = document.getElementById("address");
+address.addEventListener("change", function () {
+      validAddress(this);
+    });
+
+      // Function that return true or false if the regexp for the city is respected
+function validAddress(inputAddress) {
+  let textRegExp = new RegExp( "^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+");
+
+  if (!textRegExp.test(inputAddress.value)) {
+        document.getElementById("addressErrorMsg").innerText = "Exemple : 81 avenue maurice chevalier";
+        return false;
+  } else if (inputAddress.value.length < 4) {
+        document.getElementById("addressErrorMsg").innerText = "Vérifiez votre adresse";
+        return false;
+  } else {
+        document.getElementById("addressErrorMsg").innerText = "";
+        return true;
+  }
+}
+
+
+let city = document.getElementById("city");
+city.addEventListener("change", function () {
+      validCity(this);
+});
+// Function that return true or false if the regexp for the city is respected
+function validCity(inputCity) {
+  let textRegExp = new RegExp("^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$");
+
+  if (!textRegExp.test(inputCity.value)) {
+        document.getElementById("cityErrorMsg").innerText = "Exemple : Paris";
+        return false;
+  } else if (inputCity.value.length < 5) {
+        document.getElementById("cityErrorMsg").innerText = "Vérifiez votre email, elle semble incomplète";
+        return false;
+  } else {
+        document.getElementById("cityErrorMsg").innerText = "";
+        return true;
+  }
+}
+
 let email = document.getElementById("email");
 email.addEventListener("change", function () {
       validEmail(this);
@@ -153,7 +238,7 @@ email.addEventListener("change", function () {
 
 // Function that return true or false if the regexp for the email is respected
 function validEmail(inputEmail) {
-      let emailRegExp = new RegExp("^[A-Za-z-_]+@[A-Za-z]+.[A-Za-z]+$");
+      let emailRegExp = new RegExp("^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$", "g");
    
       if (!emailRegExp.test(inputEmail.value)) {
             document.getElementById("emailErrorMsg").innerText = "Exemple : contact@kanap.fr";
@@ -183,19 +268,20 @@ document.getElementById("order").addEventListener('click', function (e) {
 
     const order = {
       contact: {
-
+/*
         firstName: 'toto',
         lastName: 'tata',
         address: 'titi',
         city: 'titit',
         email: email.value,
-        /*
-        firstName: firstName.value,
-        lastName: lastName.value,
-        address: address.value,
-        city: city.value,
-        email: email.value,
         */
+        
+        firstName: firstName,
+        lastName: lastName,
+        address: address,
+        city: city,
+        email: email,
+       
       },
       products: productsId,
     };
@@ -227,8 +313,8 @@ function orderProduct(order) {
     })
     .then(function (value) {
       console.log(order)
-     // window.location = `./confirmation.html?orderId=${value.orderId}`;
-     // localStorage.clear();
+      window.location = `./confirmation.html?orderId=${value.orderId}`;
+      localStorage.clear();
     })
     .catch(function (err) {
       console.log(err);
