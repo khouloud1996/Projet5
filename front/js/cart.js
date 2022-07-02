@@ -10,7 +10,9 @@ fetch("http://localhost:3000/api/products/")
     displayItem(api, products);
     getTotalQty(api, products);
   })
-  .catch(function (err) { });
+  .catch(function (error) {
+    console.log(error)
+  });
 
 // Fonction pour afficher les produits dans le DOM
 function displayItem(api, products) {
@@ -45,7 +47,7 @@ function createProductCard(localStorage, api) {
      </div>
       <div class="cart__item__content__settings">
         <div class="cart__item__content__settings__quantity">
-          <p>Qté :  </p>
+          <p>Qté :</p>
           <input type="number" class="itemQuantity" data-id="${api._id}" name="itemQuantity" min="1" max="100" pattern="[0-9]+" value="${localStorage.productQuantity}">
         </div>
         <div class="cart__item__content__settings__delete">
@@ -144,137 +146,136 @@ function deleteItem(api, products) {
   });
 }
 
-
-
 let firstName = document.getElementById("firstName");
 firstName.addEventListener("change", function () {
-      validFirstName(this);
-    });
+  validFirstName(this);
+});
 
-      // Function that return true or false if the regexp for the name is respected
+// fonction pour verifier si le regex "lastname"est respecté ou pas
 function validFirstName(inputFirstName) {
   let textRegExp = new RegExp("^([a-zA-Z]+(?:. |-| |'))*[a-zA-Z]*$");
 
   if (!textRegExp.test(inputFirstName.value)) {
-        document.getElementById("firstNameErrorMsg").innerText = "Exemple : alex";
-        return false;
+    document.getElementById("firstNameErrorMsg").innerText = "Exemple : alex";
+    return false;
   } else if (inputFirstName.value.length < 2) {
-        document.getElementById("firstNameErrorMsg").innerText = "Vérifiez votre Nom";
-        return false;
+    document.getElementById("firstNameErrorMsg").innerText =
+      "Vérifiez votre Nom";
+    return false;
   } else {
-        document.getElementById("firstNameErrorMsg").innerText = "";
-        return true;
+    document.getElementById("firstNameErrorMsg").innerText = "";
+    return true;
   }
 }
 
 let lastName = document.getElementById("lastName");
 lastName.addEventListener("change", function () {
-      validLastName(this);
-    });
+  validLastName(this);
+});
 
-      // Function that return true or false if the regexp for the lasteName is respected
+// fonction pour verifier si le regex "name"est respecté ou pas
 function validLastName(inputLastName) {
   let textRegExp = new RegExp("^([a-zA-Z]+(?:. |-| |'))*[a-zA-Z]*$");
 
   if (!textRegExp.test(inputLastName.value)) {
-        document.getElementById("lastNameErrorMsg").innerText = "Exemple : doireau";
-        return false;
+    document.getElementById("lastNameErrorMsg").innerText = "Exemple : doireau";
+    return false;
   } else if (inputLastName.value.length < 3) {
-        document.getElementById("lastNameErrorMsg").innerText = "Vérifiez votre prenom";
-        return false;
+    document.getElementById("lastNameErrorMsg").innerText =
+      "Vérifiez votre prenom";
+    return false;
   } else {
-        document.getElementById("lastNameErrorMsg").innerText = "";
-        return true;
+    document.getElementById("lastNameErrorMsg").innerText = "";
+    return true;
   }
 }
-
 
 let address = document.getElementById("address");
 address.addEventListener("change", function () {
-      validAddress(this);
-    });
+  validAddress(this);
+});
 
-      // Function that return true or false if the regexp for the address is respected
+// fonction pour verifier si le regex "address"est respecté ou pas
 function validAddress(inputAddress) {
-  let textRegExp = new RegExp("[0-9]{1,4}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)");
-
+  let textRegExp = new RegExp(
+    "[0-9]{1,4}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)"
+  );
 
   if (!textRegExp.test(inputAddress.value)) {
-        document.getElementById("addressErrorMsg").innerText = "Exemple : 81 avenue maurice chevalier";
-        return false;
+    document.getElementById("addressErrorMsg").innerText =
+      "Exemple : 81 avenue maurice chevalier";
+    return false;
   } else if (inputAddress.value.length < 4) {
-        document.getElementById("addressErrorMsg").innerText = "Vérifiez votre adresse";
-        return false;
+    document.getElementById("addressErrorMsg").innerText =
+      "Vérifiez votre adresse";
+    return false;
   } else {
-        document.getElementById("addressErrorMsg").innerText = "";
-        return true;
+    document.getElementById("addressErrorMsg").innerText = "";
+    return true;
   }
 }
 
-
 let city = document.getElementById("city");
 city.addEventListener("change", function () {
-      validCity(this);
+  validCity(this);
 });
-// Function that return true or false if the regexp for the city is respected
+// fonction pour verifier si le regex "city"est respecté ou pas
 function validCity(inputCity) {
   let textRegExp = new RegExp("^([a-zA-Z]+(?:. |-| |'))*[a-zA-Z]*$");
 
   if (!textRegExp.test(inputCity.value)) {
-        document.getElementById("cityErrorMsg").innerText = "Exemple : Paris";
-        return false;
+    document.getElementById("cityErrorMsg").innerText = "Exemple : Paris";
+    return false;
   } else if (inputCity.value.length < 5) {
-        document.getElementById("cityErrorMsg").innerText = "Saisissez votre ville";
-        return false;
+    document.getElementById("cityErrorMsg").innerText = "Saisissez votre ville";
+    return false;
   } else {
-        document.getElementById("cityErrorMsg").innerText = "";
-        return true;
+    document.getElementById("cityErrorMsg").innerText = "";
+    return true;
   }
 }
 
 let email = document.getElementById("email");
 email.addEventListener("change", function () {
-      validEmail(this);
+  validEmail(this);
 });
 
-// Function that return true or false if the regexp for the email is respected
+// fonction pour verifier si le regex"email" est respecté ou pas 
 function validEmail(inputEmail) {
-      let emailRegExp = new RegExp("^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z]{2,4})+$");
-   
-      if (!emailRegExp.test(inputEmail.value)) {
-            document.getElementById("emailErrorMsg").innerText = "Exemple : contact@kanap.fr";
-            return false;
-      } else if (inputEmail.value.length < 6) {
-            document.getElementById("emailErrorMsg").innerText = "Vérifiez votre email, elle semble incomplète";
-            return false;
-      } else {
-            document.getElementById("emailErrorMsg").innerText = "";
-            return true;
-      }
+  let emailRegExp = new RegExp(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/);
+
+  if (!emailRegExp.test(inputEmail.value)) {
+    document.getElementById("emailErrorMsg").innerText =
+      "Exemple : contact@kanap.fr";
+    return false;
+  } else if (inputEmail.value.length < 6) {
+    document.getElementById("emailErrorMsg").innerText =
+      "Vérifiez votre email, elle semble incomplète";
+    return false;
+  } else {
+    document.getElementById("emailErrorMsg").innerText = "";
+    return true;
+  }
 }
-
-
-document.getElementById("order").addEventListener('click', function (e) {
+ // recuperer les infos saisie par l'utilisateur
+document.getElementById("order").addEventListener("click", function (e) {
   e.preventDefault();
 
-  const products = JSON.parse(localStorage.getItem("product"))
+  const products = JSON.parse(localStorage.getItem("product"));
   if (products === null || products.length < 1) {
-    alert('Panier vide');
-  } 
-  else if 
-  
-  (validFirstName(firstName) == true && 
-  validLastName(lastName) == true && 
-  validAddress(address) ==true  && 
-  validCity(city) == true&& 
-  validEmail(email) == true)
-   
-  {
-
+    alert("Panier vide");
+  } else if (
+    // verification des infos saisie l'utilisateur
+    validFirstName(firstName) == true &&
+    validLastName(lastName) == true &&
+    validAddress(address) == true &&
+    validCity(city) == true &&
+    validEmail(email) == true
+  ) {
     const productsId = [];
     products.forEach((product) => {
       productsId.push(product.productId);
-  })
+    });
 
     const order = {
       contact: {
@@ -283,40 +284,18 @@ document.getElementById("order").addEventListener('click', function (e) {
         address: address.value,
         city: city.value,
         email: email.value,
-
       },
       products: productsId,
-    }
- 
+    };
+
     orderProduct(order);
-
   }
-  
-
-})
-
-
-/*
-//Enregistre les données contact si les champs sont bien remplis
-function confirmForm() {
-  if (validFirstName == true && validLastName == true && validAddress == true && validCity == true && validEmail == true) {
-      contact.firstName = document.getElementById("firstName").value;
-      contact.lastName = document.getElementById("lastName").value;
-      contact.address = document.getElementById("address").value;
-      contact.city = document.getElementById("city").value;
-      contact.email = document.getElementById("email").value;
-  } else {
-      alert("Veuillez correctement remplir tous les champs du formulaire")
-  }
- 
-}
-*/
+});
 
 
 //Envoi de l'utilisateur vers la page de confirmation en supprimant le localStorage
 
 function orderProduct(order) {
-
   fetch("http://localhost:3000/api/products/order", {
     method: "POST",
     headers: {
@@ -331,19 +310,11 @@ function orderProduct(order) {
       }
     })
     .then(function (value) {
-    
       window.location = `./confirmation.html?orderId=${value.orderId}`;
+      window.location = "./confirmation.html?orderId=" + value.orderId;
       localStorage.clear();
     })
-    .catch(function (err) {
-     
+    .catch(function (error) {
+      console.log(error)
     });
 }
-
-
-
-
-
-
-
-
