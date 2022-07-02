@@ -263,11 +263,11 @@ document.getElementById("order").addEventListener('click', function (e) {
   } 
   else if 
   
-  (validFirstName(firstName)) ;
-  (validLastName(lastName));
-  (validAddress(address));
-  (validCity(city));
-  (validEmail(email));
+  (validFirstName(firstName) == true && 
+  validLastName(lastName) == true && 
+  validAddress(address) ==true  && 
+  validCity(city) == true&& 
+  validEmail(email) == true)
    
   {
 
